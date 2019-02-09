@@ -16,4 +16,57 @@ Example:
 fact: (pred obj1 obj2)
 rule: ((pred obj1 obj2) (pred obj2 obj3)) -> (pred obj1 obj3)
 
+
+fact: (location tile x y)
+fact: (movable ?piece ?initialX ?initialY ?targetx ?targety)
 """
+
+fact: (coords tile1 pos1 pos1)
+fact: (coords tile2 pos2 pos1)
+fact: (coords tile3 pos3 pos1)
+fact: (coords tile4 pos3 pos2)
+fact: (coords tile5 pos3 pos3)
+fact: (coords tile6 pos2 pos3)
+fact: (coords tile7 pos1 pos3)
+fact: (coords tile8 pos1 pos2)
+fact: (coords empty pos2 pos2)
+
+fact: (adj tile1 tile2)
+fact: (adj tile1 tile8)
+fact: (adj tile2 empty)
+fact: (adj tile2 tile3)
+fact: (adj tile2 tile1)
+fact: (adj tile3 tile4)
+fact: (adj tile3 tile2)
+fact: (adj tile4 empty)
+fact: (adj tile4 tile5)
+fact: (adj tile4 tile3)
+fact: (adj empty tile2)
+fact: (adj empty tile4)
+fact: (adj empty tile6)
+fact: (adj empty tile8)
+fact: (adj tile5 tile4)
+fact: (adj tile5 tile6)
+fact: (adj tile6 tile5)
+fact: (adj tile6 empty)
+fact: (adj tile6 tile7)
+fact: (adj tile7 tile8)
+fact: (adj tile7 tile6)
+fact: (adj tile8 tile1)
+fact: (adj tile8 tile7)
+fact: (adj tile8 empty)
+
+fact: (movable tile2 pos2 pos1 pos2 pos2)
+fact: (movable tile4 pos3 pos2 pos2 pos2)
+fact: (movable tile6 pos2 pos3 pos2 pos2)
+fact: (movable tile8 pos1 pos2 pos2 pos2)
+
+rule: ((coords ?w ?x ?y) (coords ?z ?x pos2) -> (adj ?w ?z)
+rule: ((coords ?w ?x pos2) (coords ?z ?x ?y) -> (adj ?w ?z)
+
+rule: ((coords ?w ?x ?y) (coords ?z pos2 ?y)) -> (adj ?w ?z)
+rule: ((coords ?w pos2 ?y) (coords ?z ?x ?y)) -> (adj ?w ?z)
+
+rule: ((coords ?w ?x ?y) (coords empty ?x_o ?y_o) (adj ?w empty) -> (movable ?w ?x ?y ?x_o ?y_o)
+
+
